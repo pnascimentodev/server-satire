@@ -1,6 +1,6 @@
 POST http://localhost:3000/emotions
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDE2Nzk5OCwiZXhwIjoxNzMwMTcxNTk4fQ.cin2PaPXRldvBx10h0bSCl64O9TQTC3mWsrIEiOXd40
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDI0MjcxOCwiZXhwIjoxNzMwMjQ2MzE4fQ.oS9s4-wUpZemrAP08aqHOpKU-kYZIj9sHg72fPSq_b8
 
 {
   "emotion": "Triste",

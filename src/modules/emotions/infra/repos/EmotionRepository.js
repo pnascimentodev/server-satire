@@ -2,13 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class EmotionRepository {
-  async addEmotion(userId, emotion, intensity, description, date) {
+  async addEmotion(userId, emotion, description, date) {
     try {
       return await prisma.emotion.create({
         data: {
           user_id: userId,
           emotion_type: emotion,
-          emotion_intensity: intensity,
           description,
           emotion_date: new Date(date),
         },
@@ -23,6 +22,7 @@ class EmotionRepository {
     try {
       return await prisma.emotion.findMany({
         where: { user_id: userId },
+        orderBy: { emotion_date: 'desc' },
       });
     } catch (error) {
       console.error('Erro ao buscar emoções:', error);
