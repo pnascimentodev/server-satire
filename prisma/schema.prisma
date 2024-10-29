@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id  Int      @id @default(autoincrement())
+  name     String   @db.VarChar(100)
+  email    String   @unique @db.VarChar(100)
+  password String   @db.VarChar(255)
+
+  emotions Emotion[] @relation("UserEmotions") // Definindo o relacionamento
+}
+
+model Emotion {
+  emotion_id        Int      @id @default(autoincrement())
+  user_id           Int
+  emotion_type      String   @db.VarChar(50) @map("emotion_type") // Mapeamento correto
+  emotion_intensity Int      @default(1) @map("emotion_intensity")
+  description       String?
+  emotion_date      DateTime @map("emotion_date")
+
+  user              User     @relation("UserEmotions", fields: [user_id], references: [user_id], onDelete: Cascade)
+}
+
+
+
+

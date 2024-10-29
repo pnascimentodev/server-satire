@@ -1,0 +1,10 @@
+POST http://localhost:3000/emotions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDE2Nzk5OCwiZXhwIjoxNzMwMTcxNTk4fQ.cin2PaPXRldvBx10h0bSCl64O9TQTC3mWsrIEiOXd40
+
+{
+  "emotion": "Triste",
+  "intensity": "baixa",
+  "description": "Tive um dia ruim!",
+  "date": "2024-10-28"
+}
