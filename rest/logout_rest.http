@@ -1,0 +1,4 @@
+POST http://localhost:3000/users/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDI1MjI2MCwiZXhwIjoxNzMwMjU1ODYwfQ.QxJuYdCTkERFePTf9wdMJ329Z0NpS8HNIYRDvr3v-8Q
+Content-Type: application/json
+Accept: application/json, text/plain

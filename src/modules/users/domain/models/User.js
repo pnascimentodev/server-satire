@@ -10,7 +10,7 @@ async function createUser(name, email, passwordHash) {
       data: {
         name,
         email,
-        password: passwordHash, // Assumindo que o campo seja 'password' no banco
+        password: passwordHash,
       },
     });
   } catch (error) {

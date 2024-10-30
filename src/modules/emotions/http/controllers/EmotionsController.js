@@ -1,6 +1,6 @@
 const AddEmotionUseCase = require('../../domain/use-cases/AddEmotionUseCase');
 const GetEmotionsUseCase = require('../../domain/use-cases/GetEmotionsUseCase');
-const { formatEmotionData } = require('../../../utils/ResponseFormatter');
+const { formatEmotionData } = require('../../http/formatters/EmotionFormatter');
 
 exports.addEmotion = async (req, res) => {
   try {
