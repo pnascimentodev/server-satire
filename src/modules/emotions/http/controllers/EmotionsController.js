@@ -23,8 +23,15 @@ exports.getEmotions = async (req, res) => {
   try {
     const getEmotionsUseCase = new GetEmotionsUseCase();
     const emotions = await getEmotionsUseCase.execute(req.userId);
-    const formattedEmotions = emotions.map(formatEmotionData);
-    res.status(200).json({ emotions: formattedEmotions });
+
+    // Contando emoções usando o campo 'emotion_type'
+    const emotionCounts = emotions.reduce((acc, emotion) => {
+      const type = emotion.emotion_type; // Usando 'emotion_type' em vez de 'emotion'
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+
+    res.status(200).json({ emotionCounts });
   } catch (error) {
     console.error('Erro ao buscar emoções:', error);
     res.status(500).json({ message: 'Erro ao buscar emoções', error: error.message });

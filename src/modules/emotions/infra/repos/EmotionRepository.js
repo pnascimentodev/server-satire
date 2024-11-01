@@ -20,8 +20,16 @@ class EmotionRepository {
 
   async findEmotionsByUserId(userId) {
     try {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
       return await prisma.emotion.findMany({
-        where: { user_id: userId },
+        where: {
+          user_id: userId,
+          emotion_date: {
+            gte: thirtyDaysAgo,
+          },
+        },
         orderBy: { emotion_date: 'desc' },
       });
     } catch (error) {
@@ -29,6 +37,8 @@ class EmotionRepository {
       throw new Error('Não foi possível buscar as emoções.');
     }
   }
+ 
 }
+
 
 module.exports = EmotionRepository;
