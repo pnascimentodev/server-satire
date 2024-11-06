@@ -10,11 +10,25 @@ function authMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId; // Certifique-se de que `userId` está presente no token
+
+    // Verifica se o token contém o campo 'userId'
+    if (!decoded.userId) {
+      return res.status(400).json({ status: 'error', message: 'Token inválido: userId não encontrado.' });
+    }
+
+    req.userId = decoded.userId; // Armazena o userId decodificado
     console.log('User ID decifrado:', req.userId); // Log do userId decifrado
+
     next();
   } catch (err) {
     console.error('Erro de autenticação:', err.message); // Log do erro
+
+    // Tratar erro de expiração do token
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({ status: 'error', message: 'Token expirado. Faça login novamente.' });
+    }
+
+    // Tratar outros erros de verificação
     res.status(403).json({ status: 'error', message: 'Token inválido.' });
   }
 }

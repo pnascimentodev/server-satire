@@ -9,5 +9,6 @@ router.post('/register', UserController.registerUser);
 router.post('/login', UserController.loginUser);
 router.post('/logout', authMiddleware, UserController.logoutUser);
 router.post('/edit', authMiddleware, UserController.editUser);
+router.get('/profile', authMiddleware, UserController.getUserProfile);
 
 module.exports = router; // Apenas uma exportação

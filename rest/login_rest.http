@@ -4,5 +4,5 @@ Accept: application/json, text/plain
 
 {
   "email": "teste2@exemplo.com",
-  "password": "senha123"
+  "password": "novasenha123"
 }

@@ -26,26 +26,49 @@ class UserController {
     }
   }
   
-  static async loginUser(req, res) {
-    const { email, password } = req.body;
-    try {
-        const user = await userRepository.findUserByEmail(email);
-        console.log('Usuário encontrado:', user); // Adicione esta linha
-        if (!user) {
-            return res.status(401).json({ error: 'Credenciais inválidas.' });
-        }
+static async loginUser(req, res) {
+  const { email, password } = req.body;
+  try {
+      const user = await userRepository.findUserByEmail(email);
+      if (!user) {
+          return res.status(401).json({ error: 'Credenciais inválidas.' });
+      }
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Credenciais inválidas.' });
-        }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+          return res.status(401).json({ error: 'Credenciais inválidas.' });
+      }
 
-        const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, name: user.name }); // Retorna o nome do usuário
-    } catch (err) {
-        console.error('Erro ao fazer login:', err);
-        res.status(500).json({ error: 'Erro ao fazer login.' });
+      // Gerar token JWT
+      const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      // Retorna apenas as informações necessárias para o front-end
+      res.json({
+        token,
+        user: {
+          id: user.user_id,
+          name: user.name,
+          email: user.email
+        }
+      });
+  } catch (err) {
+      console.error('Erro ao fazer login:', err);
+      res.status(500).json({ error: 'Erro ao fazer login.' });
+  }
+}
+
+static async getUserProfile(req, res) {
+  const userId = req.userId; // O userId vem do middleware de autenticação
+  try {
+    const user = await userRepository.findUserById(userId); // Chama o repositório para buscar o usuário
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'Usuário não encontrado.' });
     }
+    res.status(200).json({ status: 'success', data: user }); // Retorna os dados do usuário
+  } catch (error) {
+    console.error('Erro ao buscar perfil do usuário:', error.message);
+    res.status(500).json({ status: 'error', message: 'Erro ao buscar perfil do usuário.' });
+  }
 }
 
 

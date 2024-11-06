@@ -1,5 +1,3 @@
-// src/modules/users/infra/repos/UserRepository.js
-
 const UserModel = require('../../domain/models/User');
 
 class UserRepository {
@@ -22,6 +20,17 @@ class UserRepository {
     } catch (error) {
       console.error('Erro ao buscar usuário pelo email:', error);
       throw new Error('Erro ao buscar usuário pelo email');
+    }
+  }
+
+  // Busca um usuário pelo ID
+  async findUserById(userId) {
+    try {
+      const userData = await UserModel.findUserById(userId); // Chama a função do modelo
+      return userData;
+    } catch (error) {
+      console.error('Erro ao buscar usuário pelo ID:', error);
+      throw new Error('Erro ao buscar usuário pelo ID');
     }
   }
 
