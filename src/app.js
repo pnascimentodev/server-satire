@@ -4,14 +4,12 @@ const userRoutes = require('./modules/users/infra/routes/UserRoutes');
 const emotionRoutes = require('./modules/emotions/infra/routes/EmotionRoutes');
 const { PrismaClient } = require('@prisma/client');
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL,
-    },
-  },
-});
+// Reutilizando a conexão em ambientes serverless
+const prisma = global.prisma || new PrismaClient();
 
+if (process.env.NODE_ENV === 'development') global.prisma = prisma; // Apenas no ambiente de desenvolvimento
+
+// Garantir a conexão com o banco de dados
 prisma.$connect()
   .then(() => {
     console.log('Conectado ao banco de dados');
@@ -19,6 +17,7 @@ prisma.$connect()
   .catch((error) => {
     console.error('Erro ao conectar ao banco de dados:', error);
   });
+
 
 const app = express();
 app.use(cors());
