@@ -3,7 +3,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Função para criar um novo usuário no banco de dados
 async function createUser(name, email, passwordHash) {
   try {
     return await prisma.user.create({
@@ -19,7 +18,6 @@ async function createUser(name, email, passwordHash) {
   }
 }
 
-// Função para buscar um usuário pelo email
 async function findUserByEmail(email) {
   try {
     return await prisma.user.findUnique({
@@ -31,7 +29,6 @@ async function findUserByEmail(email) {
   }
 }
 
-// Função para buscar um usuário pelo ID (caso necessário em outros casos de uso)
 async function findUserById(userId) {
   try {
     return await prisma.user.findUnique({
@@ -43,4 +40,22 @@ async function findUserById(userId) {
   }
 }
 
-module.exports = { createUser, findUserByEmail, findUserById };
+async function updateUser(userId, updates) {
+  try {
+    return await prisma.user.update({
+      where: { user_id: userId },
+      data: updates,
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar usuário:', error);
+    throw error;
+  }
+}
+
+// Exporte as funções como um objeto
+module.exports = {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  updateUser
+};

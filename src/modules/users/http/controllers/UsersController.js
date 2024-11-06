@@ -57,6 +57,28 @@ class UserController {
       res.status(500).json({ error: 'Erro ao fazer logout.' });
     }
   }
+  static async editUser(req, res) {
+    const { userId, name, email, password } = req.body;
+
+    try {
+      if (email) {
+        const existingUser = await userRepository.findUserByEmail(email);
+        if (existingUser && existingUser.user_id !== userId) {
+          return res.status(400).json({ error: 'E-mail já está em uso.' });
+        }
+      }
+      const updates = {};
+      if (name) updates.name = name;
+      if (email) updates.email = email;
+      if (password) updates.password = await bcrypt.hash(password, 10);
+
+      const updatedUser = await userRepository.updateUser(userId, updates);
+      res.json({ message: 'Usuário atualizado com sucesso.', user: updatedUser });
+    } catch (error) {
+      console.error('Erro ao editar usuário:', error);
+      res.status(500).json({ error: 'Erro ao editar o usuário.' });
+    }
+  }
 }
 
 module.exports = UserController;
