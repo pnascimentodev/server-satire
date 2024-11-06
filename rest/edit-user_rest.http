@@ -1,10 +1,10 @@
 POST http://localhost:3000/users/edit
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDg1NzQ0MywiZXhwIjoxNzMwODYxMDQzfQ.A2fWPudF7-UaaYmzUNh9sA1WPr8nBUIKfE2GnECvxEA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDkxMzAwMiwiZXhwIjoxNzMwOTE2NjAyfQ.l7sJ7Ac-c19tLvwzoqQTidKcI2CO1Jffwvcd0V4U0RM
 
 {
   "userId": 1,
-  "name": "Priscila",
+  "name": "Priscila2",
   "email": "teste2@exemplo.com",
   "password": "novasenha123"
 }

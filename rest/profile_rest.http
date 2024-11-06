@@ -1,3 +1,3 @@
 GET http://localhost:3000/users/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDg1OTk3NiwiZXhwIjoxNzMwODYzNTc2fQ.aJPxAdYoCKFSmY2Mj8n-CZ5g96CZjfoIMcTW5IG5__g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDkxMzAwMiwiZXhwIjoxNzMwOTE2NjAyfQ.l7sJ7Ac-c19tLvwzoqQTidKcI2CO1Jffwvcd0V4U0RM
